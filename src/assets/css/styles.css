@@ -1,0 +1,651 @@
+/* =============================
+   GLOBAL STYLES
+============================= */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
+  background: #111;
+  color: #fff;
+}
+
+/* Reset links */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: 0.3s ease;
+}
+a:hover {
+  opacity: 0.8;
+}
+
+/* Reset default margins and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =============================
+   HEADER
+============================= */
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 4rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #ffffff;
+    margin: 0;
+    transition: opacity 0.3s ease;
+}
+
+.logo h1:hover {
+    opacity: 0.7;
+}
+
+#navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+#navigation ul {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* =============================
+   HERO
+============================= */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 8rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero-left, 
+.hero-right {
+    position: relative;
+    pointer-events: auto;
+}
+
+.hero-right {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    z-index: 2;
+}
+
+.hero-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.hero-title .line {
+    font-size: 6rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: white;
+    text-transform: uppercase;
+}
+
+/* Navigation styles */
+#navigation ul {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.line {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.cta-button {
+  margin-top: 30px;
+  background: #ff6600;
+  padding: 16px 40px;         /* bigger button */
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 40px;
+  display: inline-block;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  transition: 0.3s ease;
+}
+.cta-button:hover {
+  background: #e05500;
+  transform: translateY(-3px);
+}
+
+.join-now-btn {
+    position: relative;
+    padding: 18px 40px;
+    background-color: transparent;
+    color: #ffff;
+    border: 2px solid #ffff;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 3;
+    background: transparent;
+    color: #ffff;
+    border: 2px solid #ffff;
+    padding: 15px 30px;
+    font-size: 23px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s ease;
+}
+
+.join-now-btn:hover {
+    background: #e05500;
+}
+
+.btn-icon {
+    font-size: 25px;
+}
+
+/* =============================
+   TESTIMONIALS
+============================= */
+.testimonials {
+  padding: 100px 50px;
+  background: url("../images/testimonials-bg.jpg") no-repeat center/cover fixed;
+  text-align: center;
+  position: relative;
+}
+
+.testimonial-slider {
+  margin-top: 40px;
+}
+
+/* =============================
+   CONTACT
+============================= */
+.contact {
+  padding: 100px 50px;
+  background: url("../images/contact-bg.jpg") no-repeat center/cover;
+  position: relative;
+}
+
+.contact form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact input,
+.contact textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+}
+
+.submit-btn {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 12px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.submit-btn:hover {
+  background: #e05500;
+  border-color: #e05500;
+}
+
+/* Contact Response Message */
+.contact-response {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(76, 175, 80, 0.9);
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.contact-response.error {
+  background: rgba(244, 67, 54, 0.9);
+  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+}
+
+.response-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.response-message i {
+  font-size: 1.5rem;
+}
+
+.contact-response.error .response-message {
+  color: #fff;
+}
+
+/* =============================
+   FOOTER
+============================= */
+#footer {
+  background: url("../images/footer-bg.jpg") no-repeat center/cover;
+  padding: 50px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+/* =============================
+   PARALLAX + OVERLAYS
+============================= */
+.programs, .testimonials, .contact, #footer {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
+}
+
+.programs::before,
+.testimonials::before,
+.contact::before,
+#footer::before {
+  content: "";
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 0;
+}
+
+.programs > *, 
+.testimonials > *, 
+.contact > *, 
+#footer > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* =============================
+   ABOUT SECTION
+============================= */
+.about {
+    background-color: #000000;
+    padding: 120px 5%;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-left h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.about-intro {
+    font-size: 1.1rem;
+    color: #cccccc;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.about-description {
+    color: #999999;
+    line-height: 1.8;
+    margin-bottom: 50px;
+    font-size: 1rem;
+}
+
+/* =============================
+   BMI CALCULATOR
+============================= */
+.bmi-calculator {
+    background-color: #1a1a1a;
+    padding: 120px 5%;
+    text-align: center;
+}
+
+.bmi-calculator h2 {
+    font-size: 2.5rem;
+    margin-bottom: 60px;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.bmi-container {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.bmi-form {
+    flex: 1;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.unit-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.unit-btn {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    background: transparent;
+    color: #888888;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.unit-btn:hover {
+    color: #ffffff;
+}
+
+.unit-btn.active {
+    background: #ffffff;
+    color: #000000;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ffffff;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.height-inputs {
+    display: flex;
+    gap: 12px;
+}
+
+.height-inputs input {
+    flex: 1;
+}
+
+.bmi-btn {
+    width: 100%;
+    padding: 14px 30px;
+    border: 2px solid #ffffff;
+    background: #ffffff;
+    color: #000000;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.bmi-btn:hover {
+    background: transparent;
+    color: #ffffff;
+}
+
+.bmi-btn.secondary {
+    background: transparent;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.bmi-btn.secondary:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+.bmi-result {
+    flex: 1;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+}
+
+.result-box h3 {
+    color: #888888;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.bmi-value {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.bmi-category {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.bmi-info {
+    color: #cccccc;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* BMI Category Colors */
+.bmi-category.underweight {
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
+}
+
+.bmi-category.normal {
+    color: #2ecc71;
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.bmi-category.overweight {
+    color: #f39c12;
+    background: rgba(243, 156, 18, 0.1);
+}
+
+.bmi-category.obese {
+    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1);
+}
+
+/* BMI Info details */
+#bmi-info {
+    display: block;
+    text-align: center;
+}
+
+/* Make button responsive */
+@media (max-width: 768px) {
+    .join-now-btn {
+        padding: 12px 30px;
+        font-size: 16px;
+    }
+    
+    .btn-circle {
+        width: 24px;
+        height: 24px;
+    }
+
+    .bmi-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .bmi-calculator {
+        padding: 60px 20px;
+    }
+
+    .bmi-calculator h2 {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+    }
+
+    .bmi-form,
+    .result-box {
+        padding: 30px;
+    }
+
+    .bmi-value {
+        font-size: 2.5rem;
+    }
+
+    .bmi-category {
+        font-size: 1.3rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .about-left h2 {
+        font-size: 2rem;
+    }
+
+    .about-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+}

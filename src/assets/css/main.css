@@ -1,0 +1,246 @@
+/* This file contains the main styles for the website, including layout, typography, and responsive design. */
+
+/* Color and transition variables */
+:root {
+    --primary-color: #ffffff;
+    --background: #000000;
+    --accent: #333333;
+}
+
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Layout styles */
+.container {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Header styles */
+header {
+    position: fixed;
+    width: 100%;
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: transparent;
+}
+
+header.scrolled {
+    background-color: rgba(0, 0, 0, 0.95);
+    padding: 1.5rem 4rem;
+}
+
+.logo h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+}
+
+/* Navigation styles */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+nav ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+nav ul li a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+nav ul li a:hover {
+    opacity: 0.7;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.instagram-icon {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    transition: opacity 0.3s ease;
+}
+
+.cart-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.instagram-icon:hover,
+.cart-link:hover {
+    opacity: 0.7;
+}
+
+/* Hero section styles */
+.hero {
+    height: 100vh;
+    position: relative;
+    background: var(--background);
+}
+
+.hero-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+}
+
+.hero-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;  /* Change from center to flex-start */
+    padding: 25vh 4rem 0;     /* Increased top padding from 20vh to 25vh */
+}
+
+.hero-left {
+    margin-top: 40vh;  /* Add margin to move content down */
+}
+
+.hero-text-container {
+    max-width: 800px;
+}
+
+.hero-title {
+    font-size: 6rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--primary-color);
+    margin-top: 0;            /* Remove any existing margin */
+}
+
+.hero-title .line {
+    display: block;
+    font-size: 6rem;
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--primary-color);
+    text-align: right;        /* Ensure text is right-aligned */
+    margin-bottom: 1rem;  /* Add spacing between lines */
+}
+
+.hero-subtitle {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 3rem;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    border-radius: 100px;
+}
+
+.cta-button:hover {
+    background: var(--primary-color);
+    color: var(--background);
+}
+
+.hero-right {
+    margin-top: 20vh;  /* Adjust button position to match */
+}
+
+@media (max-width: 1024px) {
+    .hero-content h2 {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    header {
+        padding: 1.5rem 2rem;
+    }
+
+    .hero-content {
+        padding-left: 5%;
+    }
+
+    .hero-content h2 {
+        font-size: 3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    nav ul {
+        display: none;
+    }
+
+    nav ul.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--primary-color);
+        padding: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .testimonials {
+        padding: 4rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .cta-button {
+        padding: 1rem 2rem;
+    }
+}
