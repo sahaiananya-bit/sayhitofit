@@ -97,7 +97,9 @@ Key rule: the language model never produces the health numbers — only the plan
 ## Design
 
 Frontend follows the standards in [CLAUDEwebdesign copy.md](CLAUDEwebdesign%20copy.md):
-a monochrome white/near-black palette (adapted from the MONO reference template) with
-a single ember `#ff6b35` accent, Fraunces / Inter / JetBrains Mono type system, a
-scroll-scrubbed bento hero, and mobile-first responsive layout with
-`prefers-reduced-motion` respected.
+a clean white / near-black editorial base (layout adapted from the MONO reference
+template) with ember `#ff6b35` as the single brand accent and full-color training
+photography. Type system: Fraunces (display serif) / Inter (body) / JetBrains Mono
+(labels, data). Signature moves: the scroll-scrubbed bento hero, numbered section
+eyebrows, and a floating pill nav — all mobile-first with `prefers-reduced-motion`
+respected.
