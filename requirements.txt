@@ -1,5 +1,5 @@
-fastapi==0.104.1
-uvicorn==0.24.0
-pydantic==2.5.0
-pydantic[email]==2.5.0
-python-multipart==0.0.6
+fastapi>=0.115
+uvicorn>=0.30
+pydantic[email]>=2.9
+huggingface_hub>=0.26
+python-dotenv>=1.0

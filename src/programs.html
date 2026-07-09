@@ -3,353 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programs - SAYHITOFIT</title>
-    <meta name="description" content="Explore SAYHITOFIT's specialized training programs">
+    <title>Programs — SAYHITOFIT</title>
+    <meta name="description" content="SAYHITOFIT training programs: Movement Fundamentals, Advanced Training and Custom Coaching.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #000;
-            color: #fff;
-        }
-
-        .hero {
-            padding: 150px 50px 100px;
-            text-align: center;
-            background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: #ff3e3e;
-            margin-bottom: 20px;
-            font-weight: 900;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #ccc;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .programs-section {
-            padding: 80px 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .program-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 62, 62, 0.3);
-            padding: 40px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .program-card:hover {
-            background: rgba(255, 62, 62, 0.1);
-            border-color: #ff3e3e;
-            transform: translateY(-5px);
-        }
-
-        .program-card h2 {
-            font-size: 2rem;
-            color: #ff3e3e;
-            margin-bottom: 10px;
-        }
-
-        .program-duration {
-            color: #aaa;
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        .program-card p {
-            color: #ddd;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .program-features {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-
-        .program-features li {
-            color: #bbb;
-            padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        .program-features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #ff3e3e;
-            font-weight: bold;
-        }
-
-        .program-price {
-            font-size: 1.5rem;
-            color: #ff3e3e;
-            font-weight: 900;
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            background: #ff3e3e;
-            color: #fff;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            display: inline-block;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #e05500;
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 100px 30px 80px;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .programs-section {
-                padding: 50px 30px;
-            }
-
-            .program-card {
-                padding: 30px;
-            }
-
-            .program-card h2 {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
 </head>
-<body>
-    <header id="header">
-        <div class="logo">
-            <h1 onclick="window.location.href='index.html'" style="cursor: pointer;">SAYHITOFIT</h1>
-        </div>
-        <nav id="navigation">
-            <ul>
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="index.html#programs">Programs</a></li>
-                <li><a href="index.html#bmi-calculator">BMI Calculator</a></li>
-                <li><a href="index.html#blog">Blog</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-            </ul>
-            <div class="nav-right">
-                <a href="#" class="instagram-icon">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="cart-link">Cart (0)</a>
+<body class="grain-overlay">
+    <header id="header" class="scrolled">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="index.html">SAYHITOFIT</a>
             </div>
-        </nav>
+            <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-list">☰</button>
+            <nav id="navigation" aria-label="Main">
+                <ul id="nav-list">
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="programs.html" aria-current="page">Programs</a></li>
+                    <li><a href="index.html#bmi-calculator">BMI Check</a></li>
+                    <li><a href="ai-analyzer.html">Body Analyzer</a></li>
+                    <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main id="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>OUR TRAINING PROGRAMS</h1>
-            <p>Choose the perfect program for your fitness journey</p>
-        </section>
+        <div class="page-head wrap">
+            <p class="eyebrow">Programs</p>
+            <h1 class="section-title">Three ways in, one method</h1>
+            <p class="lede">Every program is built on the same natural-movement method. Start where you are: learn the fundamentals, push into advanced work, or have a coach write the whole thing around your life.</p>
+        </div>
 
-        <!-- Programs -->
         <section class="programs-section">
-            <!-- Program 1 -->
-            <div class="program-card">
-                <h2>Movement Fundamentals</h2>
-                <div class="program-duration">8 Weeks | Beginner Friendly</div>
-                <p>Master the basics of natural movement and build a strong foundation. Perfect for beginners or anyone looking to reset their training.</p>
-                <ul class="program-features">
-                    <li>Foundation movement patterns</li>
-                    <li>Proper form and technique</li>
-                    <li>Progressive difficulty scaling</li>
-                    <li>Weekly coaching sessions</li>
-                    <li>Nutrition guidance</li>
-                </ul>
-                <div class="program-price">$99</div>
-                <button class="btn">Enroll Now</button>
-            </div>
+            <div class="wrap">
+                <div class="program-card">
+                    <div class="program-body">
+                        <span class="program-num">01</span>
+                        <h2>Movement Fundamentals</h2>
+                        <span class="program-meta">8 weeks · beginner friendly</span>
+                        <p>Master the basics of natural movement and build a foundation worth loading. For beginners — or anyone honest enough to reset their training.</p>
+                        <ul class="program-features">
+                            <li>Foundation movement patterns</li>
+                            <li>Proper form and technique</li>
+                            <li>Progressive difficulty scaling</li>
+                            <li>Weekly coaching sessions</li>
+                            <li>Nutrition guidance</li>
+                        </ul>
+                    </div>
+                    <div class="program-side">
+                        <div class="program-price">$99 <small>one-time</small></div>
+                        <a href="index.html#contact" class="btn">Enroll now</a>
+                    </div>
+                </div>
 
-            <!-- Program 2 -->
-            <div class="program-card">
-                <h2>Advanced Training</h2>
-                <div class="program-duration">12 Weeks | Intermediate+ Level</div>
-                <p>Take your fitness to the next level with advanced movement patterns and strength building. For those ready to push their limits.</p>
-                <ul class="program-features">
-                    <li>Advanced movement techniques</li>
-                    <li>Strength and power development</li>
-                    <li>Sport-specific training</li>
-                    <li>Personal performance tracking</li>
-                    <li>Bi-weekly coaching calls</li>
-                </ul>
-                <div class="program-price">$199</div>
-                <button class="btn">Enroll Now</button>
-            </div>
+                <div class="program-card">
+                    <div class="program-body">
+                        <span class="program-num">02</span>
+                        <h2>Advanced Training</h2>
+                        <span class="program-meta">12 weeks · intermediate and up</span>
+                        <p>Advanced movement patterns, strength and power development for people ready to push their limits — with the numbers tracked to prove it.</p>
+                        <ul class="program-features">
+                            <li>Advanced movement techniques</li>
+                            <li>Strength and power development</li>
+                            <li>Sport-specific training</li>
+                            <li>Personal performance tracking</li>
+                            <li>Bi-weekly coaching calls</li>
+                        </ul>
+                    </div>
+                    <div class="program-side">
+                        <div class="program-price">$199 <small>one-time</small></div>
+                        <a href="index.html#contact" class="btn">Enroll now</a>
+                    </div>
+                </div>
 
-            <!-- Program 3 -->
-            <div class="program-card">
-                <h2>Custom Programs</h2>
-                <div class="program-duration">Flexible | All Levels</div>
-                <p>Get a personalized training program tailored to your specific goals and fitness level. Work directly with our coaches.</p>
-                <ul class="program-features">
-                    <li>Personalized assessment</li>
-                    <li>Custom workout plans</li>
-                    <li>Flexible scheduling</li>
-                    <li>Regular progress check-ins</li>
-                    <li>Weekly 1-on-1 calls</li>
-                </ul>
-                <div class="program-price">$299/month</div>
-                <button class="btn">Get Started</button>
+                <div class="program-card">
+                    <div class="program-body">
+                        <span class="program-num">03</span>
+                        <h2>Custom Coaching</h2>
+                        <span class="program-meta">flexible · all levels</span>
+                        <p>A personalized program written around your goals, schedule and equipment. You work directly with a coach, and the plan changes as you do.</p>
+                        <ul class="program-features">
+                            <li>Personalized assessment</li>
+                            <li>Custom workout plans</li>
+                            <li>Flexible scheduling</li>
+                            <li>Regular progress check-ins</li>
+                            <li>Weekly 1-on-1 calls</li>
+                        </ul>
+                    </div>
+                    <div class="program-side">
+                        <div class="program-price">$299 <small>/ month</small></div>
+                        <a href="index.html#contact" class="btn">Get started</a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
-            <h2>QUESTIONS? GET IN TOUCH</h2>
-            <form id="contact-form">
-                <input type="text" id="contact-name" name="name" placeholder="Name" required>
-                <input type="email" id="contact-email" name="email" placeholder="Email" required>
-                <textarea id="contact-message" name="message" placeholder="Your message" required></textarea>
-                <button type="submit" class="submit-btn">Send Message</button>
-            </form>
-            <div id="contact-response" class="contact-response" style="display: none;">
-                <div class="response-message">
-                    <i class="fas fa-check-circle"></i>
-                    <p id="response-text"></p>
+        <section class="analyzer-callout" style="padding-top: 0;">
+            <div class="wrap">
+                <div class="callout-box">
+                    <div>
+                        <h2 class="section-title">Not sure which one fits?</h2>
+                        <p>Run the body analyzer first — it estimates your body composition and writes a starter plan, which makes picking a program much easier.</p>
+                    </div>
+                    <div class="callout-action">
+                        <a href="ai-analyzer.html" class="btn">Run your analysis</a>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer id="footer">
-        <div class="footer-content">
-            <div class="footer-grid">
-                <div class="footer-info">
-                    <h3>SAYHITOFIT</h3>
-                    <p>Transform your body naturally</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html#about">About</a></li>
-                        <li><a href="index.html#programs">Programs</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="social-links">
-                    <a href="#" class="instagram">Instagram</a>
-                    <a href="#" class="cart">Cart (0)</a>
-                </div>
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>SAYHITOFIT</h3>
+                <p>Natural movement training studio.</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 SAYHITOFIT. All rights reserved.</p>
+            <div class="footer-links">
+                <h4>Site</h4>
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="ai-analyzer.html">Body Analyzer</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Follow</h4>
+                <ul>
+                    <li><a href="https://instagram.com" rel="noopener">Instagram</a></li>
+                </ul>
             </div>
         </div>
+        <div class="footer-bottom">
+            <p>© 2026 SAYHITOFIT. All rights reserved.</p>
+        </div>
     </footer>
-
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Simple animation for program cards
-        gsap.from('.program-card', {
-            scrollTrigger: {
-                trigger: '.programs-section',
-                start: 'top 80%',
-            },
-            opacity: 0,
-            y: 30,
-            duration: 0.6,
-            stagger: 0.2,
-            ease: 'power2.out'
-        });
-
-        // Contact form handler
-        const contactForm = document.getElementById('contact-form');
-        const contactResponse = document.getElementById('contact-response');
-        const responseText = document.getElementById('response-text');
-
-        if (contactForm) {
-            contactForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                const name = document.getElementById('contact-name').value;
-                const email = document.getElementById('contact-email').value;
-                const message = document.getElementById('contact-message').value;
-
-                try {
-                    const response = await fetch('http://localhost:8000/api/contact', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            name: name,
-                            email: email,
-                            message: message
-                        })
-                    });
-
-                    const data = await response.json();
-
-                    if (response.ok) {
-                        responseText.textContent = data.message;
-                        contactResponse.style.display = 'block';
-
-                        gsap.from('#contact-response', {
-                            opacity: 0,
-                            scale: 0.9,
-                            duration: 0.5,
-                            ease: 'back.out'
-                        });
-
-                        contactForm.reset();
-
-                        setTimeout(() => {
-                            gsap.to('#contact-response', {
-                                opacity: 0,
-                                scale: 0.9,
-                                duration: 0.5,
-                                ease: 'back.in',
-                                onComplete: () => {
-                                    contactResponse.style.display = 'none';
-                                }
-                            });
-                        }, 5000);
-                    } else {
-                        responseText.textContent = 'Error: ' + (data.detail || 'Failed to send message');
-                        contactResponse.classList.add('error');
-                        contactResponse.style.display = 'block';
-                    }
-                } catch (error) {
-                    responseText.textContent = 'Error: Could not connect to server.';
-                    contactResponse.classList.add('error');
-                    contactResponse.style.display = 'block';
-                    console.error('Error:', error);
-                }
-            });
-        }
-    </script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

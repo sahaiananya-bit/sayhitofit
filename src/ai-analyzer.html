@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Analyzer — SAYHITOFIT</title>
+    <meta name="description" content="Body composition analysis with a model-written workout plan and a simple, everyday-food diet.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body class="grain-overlay">
+    <header id="header" class="scrolled">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="index.html">SAYHITOFIT</a>
+            </div>
+            <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-list">☰</button>
+            <nav id="navigation" aria-label="Main">
+                <ul id="nav-list">
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="index.html#bmi-calculator">BMI Check</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="ai-analyzer.html" class="nav-cta" aria-current="page">Body Analyzer</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="page-head wrap">
+            <p class="eyebrow">Body Analyzer</p>
+            <h1 class="section-title">Your body, measured — your plan, written</h1>
+            <p class="lede">Height, weight and a few optional tape measurements are enough to estimate your body fat, daily calories and macros. A language model then writes your weekly training split and a simple diet from everyday food.</p>
+        </div>
+
+        <section class="analyzer">
+            <div class="wrap analyzer-layout">
+                <form id="analyzer-form" class="panel" novalidate>
+                    <div class="form-section">
+                        <h3>Basics</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="an-height">Height (cm)</label>
+                                <input type="number" id="an-height" inputmode="decimal" min="100" max="250" placeholder="e.g. 172" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="an-weight">Weight (kg)</label>
+                                <input type="number" id="an-weight" inputmode="decimal" min="25" max="300" placeholder="e.g. 68" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="an-age">Age</label>
+                                <input type="number" id="an-age" inputmode="numeric" min="14" max="100" placeholder="e.g. 28" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="an-gender">Sex (for the formulas)</label>
+                                <select id="an-gender" required>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Lifestyle &amp; goal</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="an-activity">Activity level</label>
+                                <select id="an-activity">
+                                    <option value="sedentary">Sedentary — little exercise</option>
+                                    <option value="light">Light — 1–3 days/week</option>
+                                    <option value="moderate" selected>Moderate — 3–5 days/week</option>
+                                    <option value="very_active">Very active — 6–7 days/week</option>
+                                    <option value="extra_active">Extra active — physical job</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="an-goal">Goal</label>
+                                <select id="an-goal">
+                                    <option value="weight_loss">Lose fat</option>
+                                    <option value="muscle_gain">Build muscle</option>
+                                    <option value="maintenance" selected>Maintain / recomp</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Tape measurements</h3>
+                        <p class="optional-hint">Optional — but they make the body-fat estimate much more accurate. Women: hip is needed too.</p>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="an-waist">Waist (cm)</label>
+                                <input type="number" id="an-waist" inputmode="decimal" min="30" max="250" placeholder="at the navel">
+                            </div>
+                            <div class="form-group">
+                                <label for="an-neck">Neck (cm)</label>
+                                <input type="number" id="an-neck" inputmode="decimal" min="15" max="80" placeholder="below the larynx">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="an-hip">Hip (cm)</label>
+                                <input type="number" id="an-hip" inputmode="decimal" min="40" max="250" placeholder="widest point">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Physique photo</h3>
+                        <p class="optional-hint">Optional — the vision model estimates a body-fat range and adds coaching notes. A photo gives a rough range only; tape measurements stay more accurate. Analyzed once, never stored.</p>
+                        <input type="file" id="an-photo" accept="image/jpeg,image/png,image/webp" hidden>
+                        <div class="photo-drop" id="photo-drop">
+                            <button type="button" class="btn ghost" id="photo-pick">Choose a photo</button>
+                            <span class="photo-hint">Front-on, decent lighting works best</span>
+                        </div>
+                        <div class="photo-preview" id="photo-preview" style="display:none;">
+                            <img id="photo-thumb" alt="Selected physique photo preview">
+                            <button type="button" class="btn ghost" id="photo-remove">Remove</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn analyze-btn" id="analyze-btn">Analyze me</button>
+                </form>
+
+                <div id="results-area" aria-live="polite">
+                    <div class="results-empty" id="results-empty">
+                        <p>Fill in the form and your full analysis appears here — body composition, calories, macros, training week and meals.</p>
+                    </div>
+
+                    <div class="loading-state" id="loading-state" style="display: none;">
+                        <div class="spinner" aria-hidden="true"></div>
+                        <p>Analyzing your numbers and writing your plan…<br><small>The plan is model-written — this can take a minute or two, especially with a photo.</small></p>
+                    </div>
+
+                    <div class="error-box" id="error-box" style="display: none;"></div>
+
+                    <div id="results" style="display: none;">
+                        <span class="plan-source" id="plan-source"></span>
+
+                        <div class="metric-grid" id="metric-grid"></div>
+
+                        <div class="result-block panel" id="photo-block" style="display:none;">
+                            <h4>Photo assessment</h4>
+                            <div id="photo-analysis-body"></div>
+                        </div>
+
+                        <div class="result-block panel">
+                            <h4>Daily calories</h4>
+                            <div class="metric-grid" id="calorie-grid" style="border: none;"></div>
+                        </div>
+
+                        <div class="result-block panel">
+                            <h4>Macros at maintenance</h4>
+                            <div class="chart-box"><canvas id="macro-chart" aria-label="Macro breakdown chart" role="img"></canvas></div>
+                            <div class="macro-legend" id="macro-legend"></div>
+                        </div>
+
+                        <div class="result-block panel" id="timeline-block" style="display:none;">
+                            <h4>Timeline</h4>
+                            <p id="timeline-text" class="advice-list"></p>
+                        </div>
+
+                        <div class="result-block panel">
+                            <h4 id="workout-title">Your training week</h4>
+                            <div id="workout-days"></div>
+                        </div>
+
+                        <div class="result-block panel">
+                            <h4 id="nutrition-title">Your plate, kept simple</h4>
+                            <div id="meal-rows"></div>
+                            <h4 style="margin-top:1.5rem;">Pantry staples</h4>
+                            <div class="pantry-tags" id="pantry-tags"></div>
+                        </div>
+
+                        <div class="result-block panel">
+                            <h4>Coach's notes</h4>
+                            <p class="advice-list" id="advice-text"></p>
+                        </div>
+                    </div>
+
+                    <p class="disclaimer">Estimates are based on standard formulas (Mifflin-St Jeor, US Navy method) and a general-purpose language model. They are guidance, not medical advice — talk to a professional before major changes, especially with existing health conditions.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="footer-grid">
+            <div class="footer-info">
+                <h3>SAYHITO<span style="color: var(--ember)">FIT</span></h3>
+                <p>Natural movement training studio.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Site</h4>
+                <ul>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="programs.html">Programs</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Follow</h4>
+                <ul>
+                    <li><a href="https://instagram.com" rel="noopener">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 SAYHITOFIT. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/analyzer.js"></script>
+</body>
+</html>

@@ -1,434 +1,336 @@
-// assets/js/main.js
-document.addEventListener("DOMContentLoaded", () => {
-  // Initialize GSAP
-  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+// SAYHITOFIT — site behavior (nav, hero bento scroll, method rotation, BMI, contact)
+document.addEventListener('DOMContentLoaded', () => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Hero video and content
-  const heroVideo = document.querySelector('.hero-video');
-  const heroContent = document.querySelector('.hero-content');
+  // ---------- Mobile navigation ----------
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navList = document.getElementById('nav-list');
 
-  // Function to handle video loaded
-  heroVideo.addEventListener('loadeddata', () => {
-      // Once video is loaded, animate in the hero content
-      gsap.to(heroContent, {
-          opacity: 1,
-          visibility: 'visible',
-          duration: 1,
-          delay: 0.5, // Half second delay after video loads
-          ease: 'power2.out'
-      });
-
-      // Animate the title lines sequentially
-      gsap.from('.hero-title .line', {
-          y: 100,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: 'power3.out'
-      });
-
-      // Animate the button
-      gsap.from('.join-now-btn', {
-          scale: 0.8,
-          opacity: 0,
-          duration: 0.5,
-          delay: 1.2,
-          ease: 'back.out'
-      });
-  });
-
-  // Header background on scroll
-  ScrollTrigger.create({
-    start: "top -80",
-    end: 99999,
-    toggleClass: {
-      className: 'header-scrolled',
-      targets: 'header'
-    }
-  });
-
-  // --- Existing animations (from earlier) ---
-
-  // About Section
-  gsap.from("#about h2", {
-    scrollTrigger: {
-      trigger: "#about",
-      start: "top 80%",
-    },
-    y: 50,
-    opacity: 0,
-    duration: 1
-  });
-
-  gsap.from(".about-left p", {
-    scrollTrigger: {
-      trigger: "#about",
-      start: "top 75%",
-    },
-    y: 50,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.2,
-    ease: "power3.out"
-  });
-
-  // BMI Calculator
-  const calculateBmiBtn = document.getElementById('calculate-bmi');
-  const resetBmiBtn = document.getElementById('reset-bmi');
-  const bmiResult = document.getElementById('bmi-result');
-  const bmiValue = document.getElementById('bmi-value');
-  const bmiCategory = document.getElementById('bmi-category');
-  const bmiInfo = document.getElementById('bmi-info');
-  
-  // Unit toggle elements
-  const unitBtns = document.querySelectorAll('.unit-btn');
-  const metricInputs = document.getElementById('metric-inputs');
-  const imperialInputs = document.getElementById('imperial-inputs');
-  
-  // Metric inputs
-  const heightCm = document.getElementById('height-cm');
-  const weightKg = document.getElementById('weight-kg');
-  
-  // Imperial inputs
-  const heightFeet = document.getElementById('height-feet');
-  const heightInches = document.getElementById('height-inches');
-  const weightLbs = document.getElementById('weight-lbs');
-
-  let currentUnit = 'metric';
-
-  // Unit toggle functionality
-  unitBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      unitBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentUnit = btn.getAttribute('data-unit');
-      
-      if (currentUnit === 'metric') {
-        metricInputs.style.display = 'block';
-        imperialInputs.style.display = 'none';
-        heightCm.focus();
-      } else {
-        metricInputs.style.display = 'none';
-        imperialInputs.style.display = 'block';
-        heightFeet.focus();
-      }
-      
-      bmiResult.style.display = 'none';
+  if (menuToggle && navList) {
+    menuToggle.addEventListener('click', () => {
+      const open = navList.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
     });
-  });
-
-  function calculateBMI() {
-    let height, weight;
-
-    if (currentUnit === 'metric') {
-      height = parseFloat(heightCm.value);
-      weight = parseFloat(weightKg.value);
-
-      if (!height || !weight || height <= 0 || weight <= 0) {
-        alert('Please enter valid height and weight values');
-        return;
-      }
-
-      const heightInMeters = height / 100;
-      const bmi = weight / (heightInMeters * heightInMeters);
-      displayBMIResult(bmi);
-    } else {
-      const feet = parseFloat(heightFeet.value);
-      const inches = parseFloat(heightInches.value) || 0;
-      weight = parseFloat(weightLbs.value);
-
-      if (!feet || weight <= 0 || feet < 0 || inches < 0) {
-        alert('Please enter valid height and weight values');
-        return;
-      }
-
-      // Convert feet and inches to total inches
-      const totalInches = feet * 12 + inches;
-      
-      // BMI formula: (weight in pounds * 703) / (height in inches)^2
-      const bmi = (weight * 703) / (totalInches * totalInches);
-      displayBMIResult(bmi);
-    }
-  }
-
-  function displayBMIResult(bmi) {
-    const bmiRounded = bmi.toFixed(1);
-    bmiValue.textContent = bmiRounded;
-
-    let category = '';
-    let info = '';
-    let className = '';
-
-    if (bmi < 18.5) {
-      category = 'UNDERWEIGHT';
-      info = 'You are underweight. Consider consulting with a fitness professional to develop a healthy training plan.';
-      className = 'underweight';
-    } else if (bmi < 25) {
-      category = 'NORMAL WEIGHT';
-      info = 'Great! You have a healthy weight. Focus on maintaining through consistent training and proper nutrition.';
-      className = 'normal';
-    } else if (bmi < 30) {
-      category = 'OVERWEIGHT';
-      info = 'You are overweight. Our programs can help you achieve your fitness goals through structured training.';
-      className = 'overweight';
-    } else {
-      category = 'OBESE';
-      info = 'Start your transformation journey with us. Our movement fundamentals program is perfect for getting started.';
-      className = 'obese';
-    }
-
-    bmiCategory.textContent = category;
-    bmiCategory.className = 'bmi-category ' + className;
-    bmiInfo.textContent = info;
-
-    bmiResult.style.display = 'block';
-
-    gsap.from(bmiResult, {
-      opacity: 0,
-      scale: 0.9,
-      duration: 0.6,
-      ease: 'back.out'
+    navList.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navList.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      });
     });
   }
 
-  function resetBMI() {
-    heightCm.value = '';
-    weightKg.value = '';
-    heightFeet.value = '';
-    heightInches.value = '';
-    weightLbs.value = '';
-    bmiResult.style.display = 'none';
-    bmiValue.textContent = '0';
-    bmiCategory.textContent = 'Enter your details';
-    bmiCategory.className = 'bmi-category';
-    bmiInfo.textContent = '';
-    
-    if (currentUnit === 'metric') {
-      heightCm.focus();
-    } else {
-      heightFeet.focus();
-    }
-  }
-
-  calculateBmiBtn.addEventListener('click', calculateBMI);
-  resetBmiBtn.addEventListener('click', resetBMI);
-
-  // Enter key support for metric inputs
-  heightCm.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') calculateBMI();
-  });
-
-  weightKg.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') calculateBMI();
-  });
-
-  // Enter key support for imperial inputs
-  heightFeet.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') heightInches.focus();
-  });
-
-  heightInches.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') calculateBMI();
-  });
-
-  weightLbs.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') calculateBMI();
-  });
-
-  gsap.from("#bmi-calculator h2", {
-    scrollTrigger: {
-      trigger: "#bmi-calculator",
-      start: "top 80%",
-    },
-    y: 50,
-    opacity: 0,
-    duration: 1
-  });
-
-  gsap.from(".bmi-container", {
-    scrollTrigger: {
-      trigger: ".bmi-container",
-      start: "top center",
-      toggleActions: "play none none reverse"
-    },
-    y: 100,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.2,
-    ease: "power3.out"
-  });
-
-  // Testimonials
-  gsap.from("#testimonials h2", {
-    scrollTrigger: {
-      trigger: "#testimonials",
-      start: "top 80%",
-    },
-    y: 40,
-    opacity: 0,
-    duration: 1
-  });
-
-  gsap.from(".testimonial-slider", {
-    scrollTrigger: {
-      trigger: ".testimonial-slider",
-      start: "top 85%",
-    },
-    scale: 0.9,
-    opacity: 0,
-    duration: 1.2,
-    ease: "back.out(1.7)"
-  });
-
-  // Contact
-  gsap.from("#contact h2", {
-    scrollTrigger: {
-      trigger: "#contact",
-      start: "top 80%",
-    },
-    y: 40,
-    opacity: 0,
-    duration: 1
-  });
-
-  gsap.from("#contact form", {
-    scrollTrigger: {
-      trigger: "#contact form",
-      start: "top 85%",
-    },
-    y: 80,
-    opacity: 0,
-    duration: 1,
-    ease: "power2.out"
-  });
-
-  // Footer
-  gsap.from("#footer .footer-content", {
-    scrollTrigger: {
-      trigger: "#footer",
-      start: "top 85%",
-    },
-    y: 60,
-    opacity: 0,
-    duration: 1.2,
-    ease: "power2.out"
-  });
-
-  // --- Parallax Backgrounds ---
-  const parallaxSections = [".testimonials", ".contact", "#footer"];
-
-  parallaxSections.forEach(section => {
-    gsap.to(section, {
-      backgroundPosition: "50% 100%", // shifts bg down as you scroll
-      ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        start: "top bottom",  // start when section enters view
-        end: "bottom top",    // end when section leaves view
-        scrub: true           // smooth scroll-linked animation
-      }
-    });
-  });
-
-  // --- Header Scroll Effect ---
+  // ---------- Floating pill header ----------
   const header = document.querySelector('header');
+  const onHeaderScroll = () => header.classList.toggle('scrolled', window.scrollY > 50);
+  window.addEventListener('scroll', onHeaderScroll, { passive: true });
+  onHeaderScroll();
 
-  window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-          header.classList.add('scrolled');
+  // ---------- Hero: giant word letters ----------
+  const heroWordText = document.getElementById('hero-word-text');
+  if (heroWordText) {
+    const word = 'SAYHITOFIT';
+    heroWordText.innerHTML = word
+      .split('')
+      .map((ch, i) => `<span style="animation-delay:${i * 0.08}s">${ch}</span>`)
+      .join('');
+  }
+
+  // ---------- Hero: scroll-scrubbed bento (ported from the MONO reference) ----------
+  const heroTrack = document.getElementById('hero-track');
+  const heroWord = document.getElementById('hero-word');
+  const heroCenter = document.getElementById('hero-center');
+  const heroColLeft = document.getElementById('hero-col-left');
+  const heroColRight = document.getElementById('hero-col-right');
+  const heroTagline = document.getElementById('hero-tagline');
+  const heroBento = document.querySelector('.hero-bento');
+  const heroMedia = heroCenter ? heroCenter.querySelector('video, img.hero-center-media') : null;
+
+  if (heroTrack && !reducedMotion) {
+    let rafId = null;
+
+    const updateHero = () => {
+      const rect = heroTrack.getBoundingClientRect();
+      // Real scrub distance: track height minus the sticky viewport.
+      const scrollableHeight = heroTrack.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
+
+      // Word fades 0-0.15, images fully assemble by 0.6, then HOLD
+      // assembled for the rest of the scrub so the grid stays visible.
+      const textOpacity = Math.max(0, 1 - progress / 0.15);
+      const imageProgress = Math.max(0, Math.min(1, (progress - 0.15) / 0.45));
+
+      const centerWidth = 100 - imageProgress * 80;   // 100% -> 20%
+      const sideWidth = imageProgress * 40;             // 0% -> 40% (2 cols)
+      const sideOpacity = imageProgress;
+      const translateLeft = -100 + imageProgress * 100; // -100% -> 0%
+      const translateRight = 100 - imageProgress * 100; // 100% -> 0%
+      const gap = imageProgress * 8;
+
+      heroWord.style.opacity = textOpacity;
+      heroTagline.style.opacity = textOpacity;
+      heroBento.style.gap = `${gap}px`;
+      // The word sits behind the video; fade the video in as the word fades out
+      // so the two never fight for the same pixels.
+      if (heroMedia) heroMedia.style.opacity = Math.max(0.15, 1 - textOpacity);
+
+      heroCenter.style.width = `${centerWidth}%`;
+
+      heroColLeft.style.width = `${sideWidth}%`;
+      heroColLeft.style.gap = `${gap}px`;
+      heroColLeft.style.opacity = sideOpacity;
+      heroColLeft.style.transform = `translateX(${translateLeft}%)`;
+
+      heroColRight.style.width = `${sideWidth}%`;
+      heroColRight.style.gap = `${gap}px`;
+      heroColRight.style.opacity = sideOpacity;
+      heroColRight.style.transform = `translateX(${translateRight}%)`;
+    };
+
+    const onScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateHero);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateHero();
+  } else if (heroCenter) {
+    // Reduced motion: show the full bento immediately, skip the scrub.
+    heroCenter.style.width = '20%';
+    heroColLeft.style.width = '40%';
+    heroColRight.style.width = '40%';
+    heroColLeft.style.opacity = 1;
+    heroColRight.style.opacity = 1;
+    heroWord.style.opacity = 0;
+    heroTagline.style.opacity = 1;
+    if (heroMedia) heroMedia.style.opacity = 1;
+  }
+
+  // ---------- Method section: 3D rotating headline + blur-word paragraph ----------
+  const methodTrack = document.getElementById('method-track');
+  const headlines = document.querySelectorAll('.method-headline');
+  const methodParagraph = document.getElementById('method-paragraph');
+
+  if (methodTrack && headlines.length) {
+    if (methodParagraph && !methodParagraph.dataset.wrapped) {
+      const words = methodParagraph.textContent.trim().split(/\s+/);
+      methodParagraph.innerHTML = words.map(w => `<span>${w}</span>`).join(' ');
+      methodParagraph.dataset.wrapped = 'true';
+    }
+    const wordSpans = methodParagraph ? methodParagraph.querySelectorAll('span') : [];
+
+    let rafId = null;
+
+    const updateMethod = () => {
+      const rect = methodTrack.getBoundingClientRect();
+      const scrollableRange = methodTrack.offsetHeight - window.innerHeight;
+      const scrolled = -rect.top;
+      const progress = Math.max(0, Math.min(1, scrolled / Math.max(1, scrollableRange)));
+
+      if (!reducedMotion) {
+        const segment = 1 / headlines.length;
+        headlines.forEach((h, index) => {
+          const start = index * segment;
+          const end = (index + 1) * segment;
+          const isLast = index === headlines.length - 1;
+          let rotateX = 90;
+          let opacity = 0;
+
+          if (progress >= start && progress < end) {
+            const local = (progress - start) / segment;
+            rotateX = (1 - local) * 90;
+            opacity = local;
+          } else if (progress >= end) {
+            if (isLast) { rotateX = 0; opacity = 1; }
+            else { rotateX = -90; opacity = 0; }
+          }
+
+          h.style.transform = `rotateX(${rotateX}deg)`;
+          h.style.opacity = opacity;
+        });
       } else {
-          header.classList.remove('scrolled');
+        headlines.forEach((h, i) => {
+          h.style.opacity = i === headlines.length - 1 ? 1 : 0;
+          h.style.transform = 'none';
+        });
       }
-  });
 
-  // Hero animations
-  const tl = gsap.timeline();
-  
-  tl.to(".hero-title .line", {
-      y: 0,
-      opacity: 1,
-      duration: 1.2,
-      ease: "power4.out",
-      stagger: 0.2
-  })
-  .to(".hero-subtitle", {
-      opacity: 1,
-      duration: 1,
-      ease: "power3.out"
-  }, "-=0.8")
-  .to(".cta-button", {
-      opacity: 1,
-      duration: 1,
-      ease: "power3.out"
-  }, "-=0.8");
+      if (wordSpans.length) {
+        const descRect = methodParagraph.getBoundingClientRect();
+        const startTrigger = window.innerHeight * 0.8;
+        const endTrigger = window.innerHeight * 0.2;
+        let descProgress = 0;
+        if (descRect.top < startTrigger) {
+          descProgress = Math.max(0, Math.min(1, (startTrigger - descRect.top) / (startTrigger - endTrigger)));
+        }
+        wordSpans.forEach((span, i) => {
+          const wp = Math.max(0, Math.min(1, descProgress * wordSpans.length - i));
+          span.style.opacity = reducedMotion ? 1 : wp;
+          span.style.filter = reducedMotion ? 'none' : `blur(${(1 - wp) * 12}px)`;
+        });
+      }
+    };
 
-  // Contact Form Handler with FastAPI
+    const onMethodScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateMethod);
+    };
+
+    window.addEventListener('scroll', onMethodScroll, { passive: true });
+    updateMethod();
+  }
+
+  // ---------- Scroll-reveal for plain sections ----------
+  const revealTargets = document.querySelectorAll('.wrap, .bento-grid, .quote-media');
+  if ('IntersectionObserver' in window && !reducedMotion) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-up', 'in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealTargets.forEach(t => io.observe(t));
+  }
+
+  // ---------- BMI calculator ----------
+  const calculateBmiBtn = document.getElementById('calculate-bmi');
+  if (calculateBmiBtn) {
+    const resetBmiBtn = document.getElementById('reset-bmi');
+    const bmiResult = document.getElementById('bmi-result');
+    const bmiPlaceholder = document.getElementById('bmi-placeholder');
+    const bmiValue = document.getElementById('bmi-value');
+    const bmiCategory = document.getElementById('bmi-category');
+    const bmiInfo = document.getElementById('bmi-info');
+
+    const unitBtns = document.querySelectorAll('.unit-btn');
+    const metricInputs = document.getElementById('metric-inputs');
+    const imperialInputs = document.getElementById('imperial-inputs');
+
+    const heightCm = document.getElementById('height-cm');
+    const weightKg = document.getElementById('weight-kg');
+    const heightFeet = document.getElementById('height-feet');
+    const heightInches = document.getElementById('height-inches');
+    const weightLbs = document.getElementById('weight-lbs');
+
+    let currentUnit = 'metric';
+
+    unitBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        unitBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentUnit = btn.getAttribute('data-unit');
+        metricInputs.style.display = currentUnit === 'metric' ? 'block' : 'none';
+        imperialInputs.style.display = currentUnit === 'metric' ? 'none' : 'block';
+        hideResult();
+      });
+    });
+
+    function hideResult() {
+      bmiResult.style.display = 'none';
+      bmiPlaceholder.style.display = 'block';
+    }
+
+    function calculateBMI() {
+      let bmi;
+      if (currentUnit === 'metric') {
+        const height = parseFloat(heightCm.value);
+        const weight = parseFloat(weightKg.value);
+        if (!height || !weight || height <= 0 || weight <= 0) {
+          alert('Please enter valid height and weight values');
+          return;
+        }
+        bmi = weight / ((height / 100) ** 2);
+      } else {
+        const feet = parseFloat(heightFeet.value);
+        const inches = parseFloat(heightInches.value) || 0;
+        const weight = parseFloat(weightLbs.value);
+        if (!feet || feet < 0 || inches < 0 || !weight || weight <= 0) {
+          alert('Please enter valid height and weight values');
+          return;
+        }
+        const totalInches = feet * 12 + inches;
+        bmi = (weight * 703) / (totalInches * totalInches);
+      }
+      displayBMIResult(bmi);
+    }
+
+    function displayBMIResult(bmi) {
+      bmiValue.textContent = bmi.toFixed(1);
+
+      let category, info;
+      if (bmi < 18.5) {
+        category = 'Underweight';
+        info = 'You are under the healthy range. A coach can help you build up safely — strength work plus a calorie surplus.';
+      } else if (bmi < 25) {
+        category = 'Normal weight';
+        info = 'You are in the healthy range. Focus on maintaining it with consistent training and good food.';
+      } else if (bmi < 30) {
+        category = 'Overweight';
+        info = 'You are above the healthy range. Structured training and a moderate deficit will move this steadily.';
+      } else {
+        category = 'Obese';
+        info = 'Start with low-impact work — walking, swimming, fundamentals. Our beginner program is built for exactly this.';
+      }
+
+      bmiCategory.textContent = category;
+      bmiInfo.textContent = info;
+      bmiPlaceholder.style.display = 'none';
+      bmiResult.style.display = 'block';
+    }
+
+    function resetBMI() {
+      [heightCm, weightKg, heightFeet, heightInches, weightLbs].forEach(el => { el.value = ''; });
+      hideResult();
+    }
+
+    calculateBmiBtn.addEventListener('click', calculateBMI);
+    resetBmiBtn.addEventListener('click', resetBMI);
+
+    [heightCm, weightKg, heightInches, weightLbs].forEach(el => {
+      el.addEventListener('keypress', e => { if (e.key === 'Enter') calculateBMI(); });
+    });
+    heightFeet.addEventListener('keypress', e => { if (e.key === 'Enter') heightInches.focus(); });
+  }
+
+  // ---------- Contact form ----------
   const contactForm = document.getElementById('contact-form');
-  const contactResponse = document.getElementById('contact-response');
-  const responseText = document.getElementById('response-text');
-
   if (contactForm) {
+    const contactResponse = document.getElementById('contact-response');
+    const responseText = document.getElementById('response-text');
+
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-
-      const name = document.getElementById('contact-name').value;
-      const email = document.getElementById('contact-email').value;
-      const message = document.getElementById('contact-message').value;
+      contactResponse.classList.remove('error');
 
       try {
-        // Send data to FastAPI backend
-        const response = await fetch('http://localhost:8000/api/contact', {
+        const response = await fetch('/api/contact', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            name: name,
-            email: email,
-            message: message
+            name: document.getElementById('contact-name').value,
+            email: document.getElementById('contact-email').value,
+            message: document.getElementById('contact-message').value
           })
         });
-
         const data = await response.json();
 
         if (response.ok) {
-          // Show success message
           responseText.textContent = data.message;
           contactResponse.style.display = 'block';
-
-          // Animate the response message
-          gsap.from('#contact-response', {
-            opacity: 0,
-            scale: 0.9,
-            duration: 0.5,
-            ease: 'back.out'
-          });
-
-          // Clear the form
           contactForm.reset();
-
-          // Hide the response message after 5 seconds
-          setTimeout(() => {
-            gsap.to('#contact-response', {
-              opacity: 0,
-              scale: 0.9,
-              duration: 0.5,
-              ease: 'back.in',
-              onComplete: () => {
-                contactResponse.style.display = 'none';
-              }
-            });
-          }, 5000);
+          setTimeout(() => { contactResponse.style.display = 'none'; }, 6000);
         } else {
           responseText.textContent = 'Error: ' + (data.detail || 'Failed to send message');
           contactResponse.classList.add('error');
           contactResponse.style.display = 'block';
         }
-      } catch (error) {
-        responseText.textContent = 'Error: Could not connect to server. Make sure FastAPI is running.';
+      } catch (err) {
+        responseText.textContent = 'Could not reach the server. Is the site running through the FastAPI app?';
         contactResponse.classList.add('error');
         contactResponse.style.display = 'block';
-        console.error('Error:', error);
+        console.error(err);
       }
     });
   }
