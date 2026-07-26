@@ -6,6 +6,12 @@ body fat, Mifflin-St Jeor BMR/TDEE, macros) plus a workout and simple diet plan
 written by a Hugging Face language model, with a rule-based fallback so the site
 works even without a model token.
 
+## Demo
+
+A recorded walkthrough of the whole site — scroll-scrubbed hero, BMI check, the
+Body Analyzer end to end (form → photo → AI-written plan) and the site assistant —
+is at [`demo/sayhitofit-demo.mp4`](demo/sayhitofit-demo.mp4) (~75s).
+
 ## Stack
 
 - **Backend** — Python, FastAPI, Pydantic ([main.py](main.py), [ai_analyzer.py](ai_analyzer.py), [ai_planner.py](ai_planner.py))
