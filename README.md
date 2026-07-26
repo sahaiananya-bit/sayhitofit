@@ -21,6 +21,7 @@ works even without a model token.
 main.py            FastAPI app: contact API, analyzer API, serves src/ as the website
 ai_analyzer.py     Body-composition formulas + rule-based plan generator
 ai_planner.py      Hugging Face LLM plan generation (falls back to rules on any failure)
+ai_assistant.py    Site assistant chatbot (same Qwen model, scoped by system prompt)
 test_analyzer.py   Test cases for the analyzer
 src/
   index.html       Home: hero, about, programs, BMI check, contact
@@ -29,6 +30,7 @@ src/
   assets/css/main.css   The whole design system
   assets/js/main.js     Nav, animations, BMI calculator, contact form
   assets/js/analyzer.js Analyzer form + results rendering
+  assets/js/chat.js     Floating assistant widget (injected on every page)
 ```
 
 ## Setup
@@ -61,6 +63,7 @@ so no separate web server is needed.
 | Endpoint | Method | Purpose |
 | --- | --- | --- |
 | `/api/analyze-body-composition` | POST | Full analysis + workout & diet plans (`plan_source`: `ai` or `rules`) |
+| `/api/chat` | POST | Site assistant reply (stateless — client sends recent history) |
 | `/api/bulk-vs-cut` | POST | Bulk vs cut recommendation |
 | `/api/contact` | POST | Store a contact form message |
 | `/api/contacts` | GET | List messages (requires `X-Admin-Token`) |

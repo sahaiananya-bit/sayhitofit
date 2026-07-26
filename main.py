@@ -11,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, EmailStr
 
 from ai_analyzer import BodyCompositionRequest, analyzer
+from ai_assistant import OFFLINE_MESSAGE, ChatRequest, generate_chat_reply
 from ai_planner import analyze_physique_photo, generate_llm_plans
 
 load_dotenv()
@@ -176,6 +177,20 @@ def bulk_vs_cut_recommendation(request: BodyCompositionRequest):
         recommendation["reasoning"].append("Focus on strength training with maintenance calories")
 
     return {"success": True, "recommendation": recommendation}
+
+
+# Sync on purpose: the blocking HF call runs in FastAPI's threadpool.
+@app.post("/api/chat")
+def chat(request: ChatRequest):
+    """
+    Site assistant. Takes the recent conversation and returns the next reply.
+    Stateless — the client sends the history each time. Falls back to a plain
+    offline message when the model is unreachable, never an error.
+    """
+    reply = generate_chat_reply(request)
+    if reply is None:
+        return {"success": True, "reply": OFFLINE_MESSAGE, "source": "offline"}
+    return {"success": True, "reply": reply, "source": "ai"}
 
 
 @app.get("/api/health")

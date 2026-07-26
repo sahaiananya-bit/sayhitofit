@@ -27,6 +27,11 @@ Tests: `PYTHONIOENCODING=utf-8 venv/Scripts/python.exe test_analyzer.py`
 - `ai_analyzer.py` — all body math (BMI, US Navy body fat, Mifflin-St Jeor BMR, TDEE,
   macros) + rule-based workout/nutrition plans. Pydantic models live here.
   `BodyCompositionResponse.plan_source` = "rules" | "ai".
+- `ai_assistant.py` — site chatbot. POST `/api/chat` takes `{messages:[{role,content}]}`
+  (stateless, client sends history; server keeps last 10, 1000 chars each, 400 reply tokens).
+  System prompt hardcodes the 3 programs + prices and FORBIDS computing anyone's personal
+  numbers (redirects to the analyzer) — keep that rule. Never errors: returns
+  `OFFLINE_MESSAGE` with `source:"offline"` when the model is unreachable.
 - `ai_planner.py` — Hugging Face calls via `huggingface_hub.InferenceClient.chat_completion`.
   `generate_llm_plans()` (text) and `analyze_physique_photo()` (vision, takes a data: URL,
   never stores the image). Both return None on ANY failure → caller falls back to rules.
