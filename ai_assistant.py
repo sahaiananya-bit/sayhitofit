@@ -18,7 +18,7 @@ from pydantic import BaseModel, Field
 
 logger = logging.getLogger("sayhitofit.ai_assistant")
 
-CHAT_TIMEOUT_S = 45
+CHAT_TIMEOUT_S = 90       # 72B on the free tier can be slow when warming up
 MAX_HISTORY = 10          # turns kept from the client (older ones dropped)
 MAX_CHARS_PER_MSG = 1000  # per-message cap, guards the free-tier credits
 MAX_REPLY_TOKENS = 400

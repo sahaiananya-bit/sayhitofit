@@ -96,6 +96,20 @@ models only write plan text / photo notes. Don't change this.
   #0a0a0a / #a3a3a3 / #e5e5e5 — legend swatches must match, see `.swatch` class).
 - All API calls are relative (`/api/...`) — site must be opened through FastAPI, not file://.
 
+## Demo video
+
+`demo/sayhitofit-demo.mp4` (~75s, 1600x900) is generated, not screen-recorded.
+Scripts live in the session scratchpad (`capture.py` + `build.py`) — recreate if needed:
+Playwright drives a headless Chromium through the whole site writing numbered PNG
+frames + a manifest of `{file, hold, caption}`; `build.py` overlays a lower-third
+caption bar, adds crossfades and title/end cards, and pipes raw RGB frames straight
+into `imageio_ffmpeg`'s bundled ffmpeg (piping is much faster than writing PNGs).
+Deps: `playwright` (+`playwright install chromium`), `imageio-ffmpeg`, `Pillow` —
+all dev-only, deliberately NOT in requirements.txt.
+Gotcha: use a real physique photo for the upload scene (the script posts the site's
+own `hero-1.jpg`) — a synthetic gradient makes the vision model correctly reject it,
+which looks like a broken feature on video.
+
 ## History / gotchas
 
 - Repo folder may be `Sayhitofir` (typo) or `sayhitofit` — user was renaming it.

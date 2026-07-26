@@ -156,3 +156,7 @@ contacts.json
 # Raw AI-generated photo sources (huge PNGs; processed JPEGs are committed instead)
 src/assets/images/Gemini_Generated_Image_*.png
 src/assets/images/Bento/
+
+# Generated demo video is committed deliberately; keep raw capture frames out
+demo/frames/
+demo/seq/
